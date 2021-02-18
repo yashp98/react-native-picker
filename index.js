@@ -16,22 +16,22 @@ const options = {
     pickerCancelBtnColor: [1, 186, 245, 1],
     pickerTitleColor: [20, 20, 20, 1],
     pickerToolBarBg: [232, 232, 232, 1],
-    pickerTextEllipsisLen: 6,
+    pickerTextEllipsisLen: 14,
     pickerBg: [196, 199, 206, 1],
     pickerRowHeight: 24,
     wheelFlex: [1, 1, 1],
     pickerData: [],
     selectedValue: [],
-    onPickerConfirm(){},
-    onPickerCancel(){},
-    onPickerSelect(){},
+    onPickerConfirm() { },
+    onPickerCancel() { },
+    onPickerSelect() { },
     pickerToolBarFontSize: 16,
     pickerFontSize: 16,
-    pickerFontColor: [31, 31 ,31, 1]
+    pickerFontColor: [31, 31, 31, 1]
 };
 
 export default {
-    init(params){
+    init(params) {
         const opt = {
             ...options,
             ...params
@@ -50,45 +50,45 @@ export default {
         });
     },
 
-    show(){
+    show() {
         Picker.show();
     },
 
-    hide(){
+    hide() {
         Picker.hide();
     },
 
     select(arr, fn) {
-        if(ios){
+        if (ios) {
             Picker.select(arr);
         }
-        else if(android){
+        else if (android) {
             Picker.select(arr, err => {
                 typeof fn === 'function' && fn(err);
             });
         }
     },
 
-    toggle(){
+    toggle() {
         this.isPickerShow(show => {
-            if(show){
+            if (show) {
                 this.hide();
             }
-            else{
+            else {
                 this.show();
             }
         });
     },
 
-    isPickerShow(fn){
+    isPickerShow(fn) {
         //android return two params: err(error massage) and status(show or not)
         //ios return only one param: hide or not...
         Picker.isPickerShow((err, status) => {
             let returnValue = null;
-            if(android){
+            if (android) {
                 returnValue = err ? false : status;
             }
-            else if(ios){
+            else if (ios) {
                 returnValue = !err;
             }
             fn && fn(returnValue);
